@@ -17,7 +17,7 @@
     boton.disabled = true;
     document.getElementById("respuesta").innerText = "";
     const pregunta = document.getElementById("pregunta").value;
-    const res = await fetch("http://127.0.0.1:8000/preguntar", {
+    const res = await fetch("https://curso-fastapi-si8x.onrender.com/preguntar", {
       method: "POST",
       headers: {"Content-Type": "application/json"},
       body: JSON.stringify({pregunta})
