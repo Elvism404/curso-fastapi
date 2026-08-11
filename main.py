@@ -5,7 +5,6 @@ from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
 from supabase import create_client
 from langchain_groq import ChatGroq
 from langchain_core.prompts import ChatPromptTemplate
@@ -13,11 +12,18 @@ from langchain_core.prompts import ChatPromptTemplate
 app = FastAPI()
 
 # --- RAG: búsqueda de apuntes ---
-modelo = SentenceTransformer("all-MiniLM-L6-v2")
+import requests
+
+def generar_embedding(texto: str) -> list:
+    url = "https://router.huggingface.co/hf-inference/models/sentence-transformers/all-MiniLM-L6-v2/pipeline/feature-extraction"
+    headers = {"Authorization": f"Bearer {os.getenv('HF_TOKEN')}"}
+    respuesta = requests.post(url, headers=headers, json={"inputs": texto})
+    return respuesta.json()
+
 supabase = create_client(os.getenv("SUPABASE_URL"), os.getenv("SUPABASE_KEY"))
 
 def buscar_contexto(pregunta: str) -> str:
-    vector = modelo.encode(pregunta).tolist()
+    vector = generar_embedding(pregunta)
     resultado = supabase.rpc("buscar_apuntes", {"vector_pregunta": vector}).execute()
     return "\n".join([r["contenido"] for r in resultado.data])
 # ----------------------------------
