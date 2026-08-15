@@ -29,3 +29,18 @@ SUPABASE_URL=tu_url_aqui
 SUPABASE_KEY=tu_clave_aqui
 HF_TOKEN=tu_token_aqui
 ```
+
+## Estructura del proyecto
+
+```
+curso-fastapi/
+├── backend/
+│   ├── main.py
+│   └── requirements.txt
+└── frontend/
+    └── index.html
+```
+
+## Limitaciones conocidas
+
+- El sistema depende de que el modelo (llama-3.1-8b-instant) rechace preguntas fuera del contexto de los apuntes; en pruebas fue consistente en la mayoría de los casos, pero no al 100%. Una mejora futura sería agregar un filtro de similitud por distancia antes de enviar el contexto al modelo.
