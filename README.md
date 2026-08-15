@@ -37,8 +37,10 @@ curso-fastapi/
 ├── backend/
 │   ├── main.py
 │   └── requirements.txt
-└── frontend/
-    └── index.html
+├── frontend/
+│   └── index.html
+├── .gitignore
+└── README.md
 ```
 
 ## Limitaciones conocidas
