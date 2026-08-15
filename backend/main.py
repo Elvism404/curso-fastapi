@@ -38,7 +38,7 @@ cadena = plantilla | llm
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://curso-fastapi-kappa.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
